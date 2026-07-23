@@ -13,25 +13,25 @@
 ---
 
 ## 1. Project Architecture & Overview
-This project documents the deployment, security hardening, and configuration of an Infrastructure as a Service (IaaS) cloud server running on Ubuntu 22.04 LTS[cite: 1]. 
+This project documents the deployment, security hardening, and configuration of an Infrastructure as a Service (IaaS) cloud server running on Ubuntu 22.04 LTS.
 
-The server hosts **Cafe Aylanto**, a multi-purpose internet presence integrated with an automated real-time server telemetry and health monitoring subsystem[cite: 1].
+The server hosts **Cafe Aylanto**, a multi-purpose internet presence integrated with an automated real-time server telemetry and health monitoring subsystem.
 
 ### Multi-Purpose Server Architecture:
-1. **Infrastructure Layer (IaaS):** Cloud Virtual Machine configured manually via SSH terminal[cite: 1].
-2. **Web Service Engine:** Apache2 with custom Virtual Host configuration files[cite: 1].
-3. **Domain Name System:** Dynamic DNS mapping managed via DuckDNS (`cafeaylanto.duckdns.org`)[cite: 1].
-4. **Transport Layer Security:** Free SSL/TLS encryption via Let's Encrypt (Certbot for Apache) with enforced HTTP-to-HTTPS redirection[cite: 1].
-5. **Scripting & Monitoring Subsystem:** Custom Bash telemetry script generating live HTML server metrics directly integrated into the web application (`/status.html`)[cite: 1].
+1. **Infrastructure Layer (IaaS):** Cloud Virtual Machine configured manually via SSH terminal.
+2. **Web Service Engine:** Apache2 with custom Virtual Host configuration files.
+3. **Domain Name System:** Dynamic DNS mapping managed via DuckDNS (`cafeaylanto.duckdns.org`).
+4. **Transport Layer Security:** Free SSL/TLS encryption via Let's Encrypt (Certbot for Apache) with enforced HTTP-to-HTTPS redirection.
+5. **Scripting & Monitoring Subsystem:** Custom Bash telemetry script generating live HTML server metrics directly integrated into the web application (`/status.html`).
 
 ---
 
 ## 2. Infrastructure Provisioning & Hardening (IaaS)
 
 ### 2.1 SSH Access
-Access to the remote server was established via SSH terminal[cite: 1]:
+Access to the remote server was established via SSH terminal:
 ```bash
-ssh ubuntu@YOUR_SERVER_PUBLIC_IP
+ssh ubuntu@107.22.2.30
 
 ```
 
@@ -146,8 +146,7 @@ EOF
 
 ### 4.1 DuckDNS Domain Mapping
 
-1. Mapped dynamic domain `cafeaylanto.duckdns.org` to server IP `107.22.2.30/` on DuckDNS.
-
+1. Mapped dynamic domain `cafeaylanto.duckdns.org` to server IP `107.22.2.30` on DuckDNS.
 
 2. Verified DNS resolution:
 
@@ -163,7 +162,7 @@ To ensure continuous domain accessibility:
 ```bash
 mkdir -p ~/duckdns
 cat << 'EOF' > ~/duckdns/duck.sh
-echo url="[https://www.duckdns.org/update?domains=cafeaylanto&token=YOUR_DUCKDNS_TOKEN&ip=](https://www.duckdns.org/update?domains=cafeaylanto&token=YOUR_DUCKDNS_TOKEN&ip=)" | curl -k -K -
+echo url="https://www.duckdns.org/update?domains=cafeaylanto&token=YOUR_DUCKDNS_TOKEN&ip=" | curl -k -K -
 EOF
 
 chmod 700 ~/duckdns/duck.sh
@@ -216,7 +215,7 @@ To fulfill the rubric requirement for **verifiable visual output**, the script g
 OUTPUT_FILE="/var/www/cafeaylanto/status.html"
 UPTIME=$(uptime -p)
 MEMORY=$(free -m | awk 'NR==2{printf "Memory: %sMB / %sMB (%.2f%%)", $3,$2,$3*100/$2 }')
-DISK=$(df -h \vert{} awk '$NF=="/"{printf "Disk: %s / %s (%s used)", $3,$2,$5}')
+DISK=$(df -h | awk '$NF=="/"{printf "Disk: %s / %s (%s used)", $3,$2,$5}')
 APACHE_STATUS=$(systemctl is-active apache2)
 
 cat << EOF > $OUTPUT_FILE
@@ -273,7 +272,3 @@ The output of this script can be verified live on the web server at:
 * Certbot Documentation. (2026). *User Guide — Certbot Apache Instructions*. https://certbot.eff.org/instructions
 * DuckDNS. (2026). *DuckDNS Installation & Specifications*. https://www.duckdns.org/install.jsp
 * Ubuntu Documentation. (2026). *Ubuntu Server Guide - Web Servers*. https://ubuntu.com/server/docs
-
-```
-
-```
