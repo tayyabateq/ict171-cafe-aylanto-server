@@ -1,39 +1,35 @@
 # Ict171-cafe-aylanto-server
-# ICT171 Cloud Server Project
+# ICT171 Cloud Server Project - Documentation
 
-* **Student Name:** [Your Full Name]
-* **Student ID:** [Your Student ID]
-* **Server Global IP:** [Your Server's Public IP Address]
-* **Domain Name:** https://cafeaylanto.duckdns.org/
-* **Video Explainer Link:** [Insert YouTube / Drive Link Here]
+| Parameter | Details |
+| :--- | :--- |
+| **Student Name** | [Insert Your Name Here] |
+| **Student ID** | [Insert Your Student ID Here] |
+| **Unit Code & Name** | ICT171 Introduction to Server Environments and Architectures |
+| **Server Global IP** | [Insert Your Server Public IP Address] |
+| **Domain Name** | https://cafeaylanto.duckdns.org/ |
+| **GitHub Repository** | [Insert GitHub Repository URL Here] |
+| **Video Explainer Link**| [Insert YouTube / Google Drive / Video Link Here] |
 
 ---
 
-## 1. Project Overview
-A brief description of Cafe Aylanto (what the server hosts, why it was chosen, and its architecture).
+## 1. Project Architecture & Overview
+This project documents the deployment, security hardening, and configuration of an Infrastructure as a Service (IaaS) cloud server running on Ubuntu 22.04 LTS. 
 
-## 2. Server Provisioning (IaaS)
-* **Cloud Provider:** (e.g., Microsoft Azure / AWS / Linode)
-* **OS:** (e.g., Ubuntu 22.04 LTS / Debian / Windows Server)
-* Commands and steps used to SSH/RDP into the instance.
+The server hosts **Cafe Aylanto**, a multi-purpose internet presence integrated with an automated real-time server telemetry and health monitoring subsystem.
 
-## 3. Web Server Installation & Configuration
-* Explanation of server software installation (e.g., NGINX / Apache).
-* Configuration files edited (e.g., `/etc/nginx/sites-available/default`).
+### Multi-Purpose Server Architecture:
+1. **Infrastructure Layer (IaaS):** Cloud VM configured manually via SSH terminal.
+2. **Web Service Engine:** NGINX with custom Virtual Host block configurations.
+3. **Domain Name System:** Dynamic DNS mapping managed via DuckDNS (`cafeaylanto.duckdns.org`)[cite: 1].
+4. **Transport Layer Security:** Free SSL/TLS encryption via Let's Encrypt (Certbot) with enforced HTTP-to-HTTPS redirection[cite: 1].
+5. **Scripting & Monitoring Subsystem:** Custom Bash telemetry script generating live HTML server metrics directly integrated into the web application (`/status.html`)[cite: 1].
 
-## 4. Domain & Dynamic DNS Setup
-* Steps taken to map your IP address to `cafeaylanto.duckdns.org` using DuckDNS.
-* Script or cron job used to keep DuckDNS IP updated automatically.
+---
 
-## 5. SSL/TLS Configuration (HTTPS)
-* Steps for installing Certbot / Let's Encrypt.
-* Commands executed to obtain and automatically renew certificates.
-* Proof of HTTP to HTTPS auto-redirection.
+## 2. Infrastructure Provisioning & Hardening (IaaS)
 
-## 6. Custom Scripting Component
-* **Script Purpose:** A paragraph explaining what your custom script does.
-* **Code Implementation:** Clean code with inline comments[cite: 1].
-* **Verification / Output Link:** Link or command output showing the script working[cite: 1].
-
-## 7. References
-* List of external guides, tutorials, or code adapted for this project (using APA/IEEE)[cite: 1].
+### 2.1 SSH Access
+Access to the remote server was established via SSH terminal[cite: 1]:
+```bash
+ssh ubuntu@YOUR_SERVER_PUBLIC_IP
