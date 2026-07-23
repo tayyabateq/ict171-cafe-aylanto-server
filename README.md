@@ -33,3 +33,11 @@ The server hosts **Cafe Aylanto**, a multi-purpose internet presence integrated 
 Access to the remote server was established via SSH terminal[cite: 1]:
 ```bash
 ssh ubuntu@YOUR_SERVER_PUBLIC_IP
+# Update system dependencies
+sudo apt update && sudo apt upgrade -y
+
+# Configure firewall access ports
+sudo ufw allow 22/tcp    # SSH
+sudo ufw allow 80/tcp    # HTTP
+sudo ufw allow 443/tcp   # HTTPS
+sudo ufw enable
