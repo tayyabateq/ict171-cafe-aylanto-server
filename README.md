@@ -3,10 +3,10 @@
 
 | Parameter | Details |
 | :--- | :--- |
-| **Student Name** | [Insert Your Name Here] |
-| **Student ID** | [Insert Your Student ID Here] |
+| **Student Name** | [Muhammad Tayyab Attiq] |
+| **Student ID** | [36086315] |
 | **Unit Code & Name** | ICT171 Introduction to Server Environments and Architectures |
-| **Server Global IP** | [Insert Your Server Public IP Address] |
+| **Server Global IP** | [107.22.2.30/] |
 | **Domain Name** | https://cafeaylanto.duckdns.org/ |
 | **GitHub Repository** | [Insert GitHub Repository URL Here] |
 | **Video Explainer Link**| [Insert Video Link Here] |
