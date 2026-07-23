@@ -269,3 +269,78 @@ cat << 'EOF' > /var/www/cafeaylanto/index.html
 </body>
 </html>
 EOF
+dig cafeaylanto.duckdns.org
+mkdir -p ~/duckdns
+cat << 'EOF' > ~/duckdns/duck.sh
+echo url="[https://www.duckdns.org/update?domains=cafeaylanto&token=YOUR_DUCKDNS_TOKEN&ip=](https://www.duckdns.org/update?domains=cafeaylanto&token=YOUR_DUCKDNS_TOKEN&ip=)" | curl -k -K -
+EOF
+
+chmod 700 ~/duckdns/duck.sh
+
+# Automate update script via crontab (runs every 5 minutes)
+(crontab -l 2>/dev/null; echo "*/5 * * * * ~/duckdns/duck.sh >/dev/null 2>&1") | crontab -
+# Install Certbot for Apache
+sudo apt install certbot python3-certbot-apache -y
+
+# Obtain SSL Certificate and automatically configure HTTP-to-HTTPS redirect
+sudo certbot --apache -d cafeaylanto.duckdns.org
+# Test automated certificate renewal procedure
+sudo certbot renew --dry-run
+6. Custom Scripting Component & Integrated Visualization
+6.1 Script Purpose & Logic
+A custom Bash telemetry script (server_telemetry.sh) was created to gather real-time server health metrics (CPU uptime, memory utilization, disk space, and Apache service status)[cite: 1].
+To fulfill the rubric requirement for verifiable visual output, the script generates an HTML status page directly into /var/www/cafeaylanto/status.html[cite: 1].
+6.2 Script Code (scripts/server_telemetry.sh)
+Bash
+#!/bin/bash
+# Script: server_telemetry.sh
+# Purpose: Gathers system performance metrics and formats them into an integrated web report.
+
+OUTPUT_FILE="/var/www/cafeaylanto/status.html"
+UPTIME=$(uptime -p)
+MEMORY=$(free -m | awk 'NR==2{printf "Memory: %sMB / %sMB (%.2f%%)", $3,$2,$3*100/$2 }')
+DISK=$(df -h \vert{} awk '$NF=="/"{printf "Disk: %s / %s (%s used)", $3,$2,$5}')
+APACHE_STATUS=$(systemctl is-active apache2)
+
+cat << EOF > $OUTPUT_FILE
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cafe Aylanto - Server Telemetry</title>
+    <meta http-equiv="refresh" content="15">
+    <style>
+        body { font-family: monospace; background-color: #121212; color: #00ffcc; padding: 40px; }
+        .dashboard { border: 2px solid #00ffcc; padding: 25px; border-radius: 10px; max-width: 650px; margin: 0 auto; }
+        h2 { border-bottom: 1px solid #00ffcc; padding-bottom: 10px; color: #ffffff; }
+        .status-ok { color: #00ff00; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h2>Cafe Aylanto Real-Time Server Telemetry</h2>
+        <p><strong>System Uptime:</strong> $UPTIME</p>
+        <p><strong>RAM Allocation:</strong> $MEMORY</p>
+        <p><strong>Disk Utilization:</strong> $DISK</p>
+        <p><strong>Apache2 Service:</strong> <span class="status-ok">$APACHE_STATUS</span></p>
+        <hr>
+        <p><em>Last Automation Execution: $(date)</em></p>
+        <a href="/" style="color:#ffffff;">&larr; Return to Main Cafe Aylanto Website</a>
+    </div>
+</body>
+</html>
+EOF
+6.3 Execution & Cron Automation
+Bash
+# Make script executable
+chmod +x ~/scripts/server_telemetry.sh
+
+# Automate telemetry regeneration every minute via crontab
+(crontab -l 2>/dev/null; echo "* * * * * /bin/bash /home/ubuntu/scripts/server_telemetry.sh >/dev/null 2>&1") | crontab -
+6.4 Verifiable Output
+The output of this script can be verified live on the web server at[cite: 1]:
+https://cafeaylanto.duckdns.org/status.html
+7. References
+Apache HTTP Server Project. (2026). Apache HTTP Server Version 2.4 Documentation. https://httpd.apache.org/docs/2.4/
+Certbot Documentation. (2026). User Guide — Certbot Apache Instructions. https://certbot.eff.org/instructions
+DuckDNS. (2026). DuckDNS Installation & Specifications. https://www.duckdns.org/install.jsp
+Ubuntu Documentation. (2026). Ubuntu Server Guide - Web Servers. https://ubuntu.com/server/docs
