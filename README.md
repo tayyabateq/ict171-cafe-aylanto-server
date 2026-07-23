@@ -1,4 +1,3 @@
-
 # ICT171 Cloud Server Project - Documentation
 
 | Parameter | Details |
@@ -147,7 +146,7 @@ EOF
 
 ### 4.1 DuckDNS Domain Mapping
 
-1. Mapped dynamic domain `cafeaylanto.duckdns.org` to server IP `YOUR_SERVER_PUBLIC_IP` on DuckDNS.
+1. Mapped dynamic domain `cafeaylanto.duckdns.org` to server IP `107.22.2.30/` on DuckDNS.
 
 
 2. Verified DNS resolution:
