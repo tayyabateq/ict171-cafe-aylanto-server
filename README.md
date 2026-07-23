@@ -8,8 +8,8 @@
 | **Unit Code & Name** | ICT171 Introduction to Server Environments and Architectures |
 | **Server Global IP** | [107.22.2.30/] |
 | **Domain Name** | https://cafeaylanto.duckdns.org/ |
-| **GitHub Repository** | [Insert GitHub Repository URL Here] |
-| **Video Explainer Link**| [Insert Video Link Here] |
+| **GitHub Repository** | [README.md] |
+| **Video Explainer Link**| [Insert Video] |
 
 ---
 
