@@ -5,7 +5,7 @@
 | **Student Name** | [Muhammad Tayyab Attiq] |
 | **Student ID** | [36086315] |
 | **Unit Code & Name** | ICT171 Introduction to Server Environments and Architectures |
-| **Server Global IP** | [107.22.2.30/] |
+| **Server Global IP** | [107.22.2.30] |
 | **Domain Name** | https://cafeaylanto.duckdns.org/ |
 | **GitHub Repository** | https://github.com/tayyabateq/ict171-cafe-aylanto-server |
 | **Video Explainer Link**| [Insert Video] |
