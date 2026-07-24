@@ -8,7 +8,7 @@
 | **Server Global IP** | [107.22.2.30] |
 | **Domain Name** | https://cafeaylanto.duckdns.org/ |
 | **GitHub Repository** | https://github.com/tayyabateq/ict171-cafe-aylanto-server |
-| **Video Explainer Link**| [Insert Video] |
+| **Video Explainer Link**| [https://youtu.be/MbLqgN6t1p0] |
 
 ---
 
